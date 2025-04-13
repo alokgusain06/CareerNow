@@ -85,24 +85,29 @@ const Login = () => {
           </div>
 
           {/* Password */}
-          <div className="my-2 relative">
-            <Label>Password</Label>
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              value={input.password}
-              name="password"
-              onChange={changeEventHandler}
-              placeholder="write your strong Password"
-              required
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-3 top-[38px] text-sm text-blue-600"
-            >
-              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-            </button>
-          </div>
+<div className="my-2 relative">
+  <Label>Password</Label>
+  <Input
+    type={showPassword ? 'text' : 'password'}
+    value={input.password}
+    name="password"
+    onChange={changeEventHandler}
+    placeholder="write your strong Password"
+    required
+  />
+  <button
+    type="button"
+    onClick={togglePasswordVisibility}
+    className="absolute right-3 top-[38px]"
+  >
+    {showPassword ? (
+      <FiEyeOff size={20} color={input.password ? 'black' : '#60a5fa'} />
+    ) : (
+      <FiEye size={20} color={input.password ? 'black' : '#60a5fa'} />
+    )}
+  </button>
+</div>
+
 
           {/* Role Selection */}
           <RadioGroup className="flex items-center gap-4 my-5">
