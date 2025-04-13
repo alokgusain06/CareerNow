@@ -120,22 +120,26 @@ const Signup = () => {
           </div>
 
           <div className="relative">
-            <Label>Password</Label>
-            <Input
-              type={showPassword ? 'text' : 'password'}
-              value={input.password}
-              name="password"
-              onChange={changeEventHandler}
-              placeholder="Create a strong password"
-            />
-            <button
-              type="button"
-              onClick={togglePasswordVisibility}
-              className="absolute right-3 top-[38px] text-sm text-blue-600"
-            >
-              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
-            </button>
-          </div>
+  <Label>Password</Label>
+  <Input
+    type={showPassword ? 'text' : 'password'}
+    value={input.password}
+    name="password"
+    onChange={changeEventHandler}
+    placeholder="Create a strong password"
+  />
+  <button
+    type="button"
+    onClick={togglePasswordVisibility}
+    className="absolute right-3 top-[38px]"
+  >
+    {showPassword ? (
+      <FiEyeOff size={20} color={input.password ? 'black' : '#60a5fa'} />
+    ) : (
+      <FiEye size={20} color={input.password ? 'black' : '#60a5fa'} />
+    )}
+  </button>
+</div>
 
           <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
             <RadioGroup className="flex items-center gap-4">
