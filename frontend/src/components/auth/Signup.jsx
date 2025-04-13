@@ -29,9 +29,14 @@ const Signup = () => {
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
+  const [showPassword, setShowPassword] = useState(false);
 
   const changeFileHandler = (e) => {
     setInput({ ...input, file: e.target.files?.[0] });
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
   };
 
   const submitHandler = async (e) => {
@@ -68,7 +73,7 @@ const Signup = () => {
     if (user) {
       navigate('/');
     }
-  }, []);
+  }, [user]);
 
   return (
     <div>
@@ -113,15 +118,22 @@ const Signup = () => {
             />
           </div>
 
-          <div>
+          <div className="relative">
             <Label>Password</Label>
             <Input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={input.password}
               name="password"
               onChange={changeEventHandler}
               placeholder="Create a strong password"
             />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-3 top-[38px] text-sm text-blue-600"
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
           </div>
 
           <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
@@ -167,14 +179,12 @@ const Signup = () => {
               Please wait...
             </Button>
           ) : (
-<Button
-  type="submit"
-  className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-md shadow-sm transition duration-200"
->
-  Sign Up
-</Button>
-
-
+            <Button
+              type="submit"
+              className="w-full bg-orange-500 hover:bg-orange-600 text-white font-medium rounded-md shadow-sm transition duration-200"
+            >
+              Sign Up
+            </Button>
           )}
 
           <p className="text-sm text-center text-gray-600">
