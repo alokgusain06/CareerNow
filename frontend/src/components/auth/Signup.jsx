@@ -11,6 +11,7 @@ import { toast } from 'sonner';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoading } from '@/redux/authSlice';
 import { Loader2 } from 'lucide-react';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 const Signup = () => {
   const [input, setInput] = useState({
@@ -132,7 +133,7 @@ const Signup = () => {
               onClick={togglePasswordVisibility}
               className="absolute right-3 top-[38px] text-sm text-blue-600"
             >
-              {showPassword ? 'Hide' : 'Show'}
+              {showPassword ? <FiEyeOff size={20} /> : <FiEye size={20} />}
             </button>
           </div>
 
