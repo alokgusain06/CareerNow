@@ -22,15 +22,16 @@ const Signup = () => {
     file: '',
   });
 
-  const { loading, user } = useSelector((store) => store.auth);
+  const [showPassword, setShowPassword] = useState(false);
+  const [formLoading, setFormLoading] = useState(false); // 👈 Local loader state
+
+  const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-
-  const [showPassword, setShowPassword] = useState(false);
 
   const changeFileHandler = (e) => {
     setInput({ ...input, file: e.target.files?.[0] });
@@ -53,6 +54,7 @@ const Signup = () => {
     }
 
     try {
+      setFormLoading(true); // 👈 start spinner
       dispatch(setLoading(true));
       const res = await axios.post("https://careenow-1.onrender.com/api/v1/user/register", formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
@@ -64,9 +66,10 @@ const Signup = () => {
       }
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     } finally {
       dispatch(setLoading(false));
+      setFormLoading(false); // 👈 stop spinner
     }
   };
 
@@ -120,26 +123,26 @@ const Signup = () => {
           </div>
 
           <div className="relative">
-  <Label>Password</Label>
-  <Input
-    type={showPassword ? 'text' : 'password'}
-    value={input.password}
-    name="password"
-    onChange={changeEventHandler}
-    placeholder="Create a strong password"
-  />
-  <button
-    type="button"
-    onClick={togglePasswordVisibility}
-    className="absolute right-3 top-[38px]"
-  >
-    {showPassword ? (
-      <FiEyeOff size={20} color={input.password ? 'black' : '#60a5fa'} />
-    ) : (
-      <FiEye size={20} color={input.password ? 'black' : '#60a5fa'} />
-    )}
-  </button>
-</div>
+            <Label>Password</Label>
+            <Input
+              type={showPassword ? 'text' : 'password'}
+              value={input.password}
+              name="password"
+              onChange={changeEventHandler}
+              placeholder="Create a strong password"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute right-3 top-[38px]"
+            >
+              {showPassword ? (
+                <FiEyeOff size={20} color={input.password ? 'black' : '#60a5fa'} />
+              ) : (
+                <FiEye size={20} color={input.password ? 'black' : '#60a5fa'} />
+              )}
+            </button>
+          </div>
 
           <div className="flex flex-col sm:flex-row justify-between gap-4 items-center">
             <RadioGroup className="flex items-center gap-4">
@@ -178,7 +181,7 @@ const Signup = () => {
             </div>
           </div>
 
-          {loading ? (
+          {formLoading ? (
             <Button className="w-full">
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Please wait...
