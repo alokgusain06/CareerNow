@@ -9,7 +9,7 @@ const useGetCompanyById = (companyId) => {
     useEffect(()=>{
         const fetchSingleCompany = async () => {
             try {
-                const res = await axios.get(`https://careenow-1.onrender.com/api/v1/company/getcompany/${id}`,{withCredentials:true});
+                const res = await axios.get(`https://careenow-1.onrender.com/api/v1/company/get/${companyId}`,{withCredentials:true});
                 console.log(res.data.company);
                 if(res.data.success){
                     dispatch(setSingleCompany(res.data.company));
