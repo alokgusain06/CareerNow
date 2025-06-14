@@ -20,7 +20,7 @@ const JobDescription = () => {
 
     const applyJobHandler = async () => {
         try {
-            const res = await axios.get(`${APPLICATION_API_END_POINT}/apply/${jobId}`, { withCredentials: true }); // user must be authenticated
+            const res = await axios.get(`https://careenow-1.onrender.com/api/v1/application/apply/${jobId}`, { withCredentials: true }); // user must be authenticated
             
             if (res.data.success) {
                 setIsApplied(true); // Update the local state
